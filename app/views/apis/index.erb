@@ -1,0 +1,170 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-1">
+    <form action="/apis" method="post" id="create">
+      <div class="form-group">
+        <label for="url">Url</label>
+        <input type="text" class="form-control" id="url" name="api[url]" placeholder="example: /api/profile">
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <input type="text" class="form-control" id="comment" name="api[comment]" placeholder="optional">
+      </div>
+      <div class="form-group">
+        <label for="method">Method</label>
+        <select class="form-control" name="api[method]">
+          <option value="GET">GET</option>
+          <option value="POST">POST</option>
+          <option value="PUT">PUT</option>
+          <option value="PATCH">PATCH</option>
+          <option value="DELETE">DELETE</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="data">Response</label>
+        <textarea class="form-control" rows="10" name="api[data]" placeholder="{ 'data': { 'mobile': 110 } }"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary pull-right">Submit</button>
+    </form>
+  </div>
+  <div class="col-md-5">
+    <h1>Api</h1>
+    <% @apis.each do |api| %>
+      <div id="api-<%= api.id %>">
+        <p>
+          <span class="label <%= method_label(api.method) %>"><%= api.method %></span>
+          <span><%= api.comment %></span>
+          <span class="pull-right">
+            <%= api.url %>
+            <button type="button" data-id="<%= api.id %>" class="edit btn btn-link glyphicon glyphicon-pencil"></button>
+            <button type="button" data-id="<%= api.id %>" class="remove btn btn-link glyphicon glyphicon-remove"></button>
+          </span>
+        </p>
+        <hr>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Edit</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="edit_url">Url</label>
+            <input type="text" class="form-control" id="edit_url" name="api[url]">
+          </div>
+          <div class="form-group">
+            <label for="edit_comment">Comment</label>
+            <input type="text" class="form-control" id="edit_comment" name="api[comment]" placeholder="optional">
+          </div>
+          <div class="form-group">
+            <label for="edit_method">Method</label>
+            <select class="form-control" name="api[method]" id="edit_method">
+              <option value="GET">GET</option>
+              <option value="POST">POST</option>
+              <option value="PUT">PUT</option>
+              <option value="PATCH">PATCH</option>
+              <option value="DELETE">DELETE</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="edit_data">Reponse</label>
+            <textarea class="form-control" rows="10" name="data" id="edit_data"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <span class="hide" id="tip">Successful! Close this window after 3 second.</span>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="update">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="removeModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete</h4>
+      </div>
+      <div class="modal-body">
+        <p>Delete it?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmRemove">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.edit').on('click', function () {
+    var _id = $(this).attr('data-id'),
+      _url = '/apis/' + _id + '/detail';
+    $('#editModal').on('show.bs.modal', function (e) {
+      $.get(_url, function(response){
+        var api = response.api;
+        $('#edit_url').val(api.url);
+        $('#edit_comment').val(api.comment);
+        $('#edit_method').val(api.method);
+        $('#edit_data').val(api.data);
+      });
+
+      updateData(_id);
+    }).modal('show');
+  });
+
+  function updateData(id){
+    $('#update').on('click', function () {
+      $(this).attr('disabled', true);
+        _url = '/apis/' + id;
+      $.ajax({
+        url: _url,
+        type: 'PUT',
+        dataType: "json",
+        data: {
+          'api[url]': $('#edit_url').val(),
+          'api[method]': $('#edit_method').val(),
+          'api[comment]': $('#edit_comment').val(),
+          'api[data]': $('#edit_data').val()
+        },
+        success: function(response) {
+          if (response.success) {
+            $('#tip').show();
+            setInterval(function(){
+              $('#editModal').modal('hide');
+            }, 3000);
+          }
+        }
+      });
+      $(this).attr('disabled', false);
+    });
+  }
+
+  $('.remove').on('click', function () {
+    var _id = $(this).attr('data-id'),
+        _url = '/apis/' + _id;
+    $('#removeModal').modal('show');
+    $('#confirmRemove').on('click', function () {
+      $.ajax({
+        url: _url,
+        type: 'DELETE',
+        dataType: "json",
+        success: function(response) {
+          if (response.success) {
+            $('#removeModal').modal('hide');
+            $('#api-'+_id).remove();
+          }
+        }
+      });
+    });
+  });
+</script>
