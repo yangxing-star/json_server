@@ -5,6 +5,9 @@ source 'https://ruby.taobao.org'
 gem 'rails', '4.2.4'
 gem 'mysql2', '~> 0.3.18'
 gem 'jquery-rails'
+gem 'kaminari'
+gem 'figaro'
+gem 'bcrypt', '~> 3.1.7'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

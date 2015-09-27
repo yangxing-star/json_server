@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   root 'apis#index'
+
+  resources :sessions
+
+  resources :users
+
   resources :apis do
     member do
       get :detail

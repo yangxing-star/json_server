@@ -6,6 +6,8 @@ class CreateApis < ActiveRecord::Migration
       t.text      :data
       t.string    :comment
 
+      t.belongs_to :user
+
       t.timestamps
     end
   end

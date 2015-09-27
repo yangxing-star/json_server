@@ -1,44 +1,44 @@
 class ApisController < ApplicationController
+  before_action :require_user
+  before_action :find_api, only: [ :destroy, :detail, :update ]
 
   def create
-    api = Api.new api_params
+    api = @current_user.apis.new api_params
     if api.save
       redirect_to action: :index
     else
       flash[:error] = api.errors.full_messages.to_s
+      @apis = @current_user.apis
       render 'apis/index'
     end
   end
 
   def index
-    @apis = Api.all
+    @apis = @current_user.apis
   end
 
   def destroy
-    api = Api.find(params[:id])
-    if api.destroy
+    if @api.destroy
       render json: { success: true }
     else
-      render json: { success: false, msg: api.errors.full_messages.to_s }
+      render json: { success: false, msg: @api.errors.full_messages.to_s }
     end
   end
 
   def show
-    api = Api.find_by(url: request.fullpath)
+    api = @current_user.apis.find_by(url: request.fullpath)
     render json: api.data
   end
 
   def detail
-    api = Api.find(params[:id])
-    render json: { api: api }
+    render json: { api: @api }
   end
 
   def update
-    api = Api.find(params[:id])
-    if api.update(api_params)
+    if @api.update(api_params)
       render json: { success: true }
     else
-      render json: { success: false, msg: api.errors.full_messages.to_s }
+      render json: { success: false, msg: @api.errors.full_messages.to_s }
     end
   end
 
@@ -46,6 +46,10 @@ class ApisController < ApplicationController
 
   def api_params
     params.require(:api).permit( :url, :method, :data, :comment )
+  end
+
+  def find_api
+    @api = @current_user.apis.find(params[:id])
   end
 
 end
