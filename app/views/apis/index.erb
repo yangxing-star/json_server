@@ -71,7 +71,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="edit_data">Reponse</label>
+            <label for="edit_data">Response</label>
             <textarea class="form-control" rows="10" name="data" id="edit_data"></textarea>
           </div>
         </form>
@@ -129,10 +129,10 @@
         type: 'PUT',
         dataType: "json",
         data: {
-          'api[url]': $('#edit_url').val(),
-          'api[method]': $('#edit_method').val(),
-          'api[comment]': $('#edit_comment').val(),
-          'api[data]': JSON.parse($('#edit_data').val())
+          'url': $('#edit_url').val(),
+          'method': $('#edit_method').val(),
+          'comment': $('#edit_comment').val(),
+          'data': JSON.parse($('#edit_data').val())
         },
         success: function(response) {
           if (response.success) {
@@ -173,10 +173,10 @@
       type: 'POST',
       dataType: "json",
       data: {
-        'api[url]': $('#url').val(),
-        'api[comment]': $('#comment').val(),
-        'api[method]': $('#method').val(),
-        'api[data]': JSON.parse($('#data').val())
+        'url': $('#url').val(),
+        'comment': $('#comment').val(),
+        'method': $('#method').val(),
+        'data': JSON.parse($('#data').val())
       },
       success: function(response) {
         if (response.success) {

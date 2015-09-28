@@ -3,7 +3,7 @@ class ApisController < ApplicationController
   before_action :find_api, only: [ :destroy, :detail, :update ]
 
   def create
-    api = @current_user.apis.new api_params
+    api = @current_user.apis.new(url: params[:url], method: params[:method], comment: params[:comment], data: params[:data].to_json)
     if api.save
       render json: { success: true }
     else
@@ -34,7 +34,7 @@ class ApisController < ApplicationController
   end
 
   def update
-    if @api.update(api_params)
+    if @api.update(url: params[:url], method: params[:method], comment: params[:comment], data: params[:data].to_json)
       render json: { success: true }
     else
       render json: { success: false, msg: @api.errors.full_messages.to_s }
@@ -42,10 +42,6 @@ class ApisController < ApplicationController
   end
 
   private
-
-  def api_params
-    params.require(:api).permit( :url, :method, :data, :comment )
-  end
 
   def find_api
     @api = @current_user.apis.find(params[:id])
