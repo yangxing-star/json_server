@@ -1,5 +1,5 @@
 class ApisController < ApplicationController
-  before_action :require_user
+  before_action :require_user, except: :show
   before_action :find_api, only: [ :destroy, :detail, :update ]
 
   def create
