@@ -1,6 +1,5 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-1">
-    <form action="/apis" method="post" id="create">
       <div class="form-group">
         <label for="url">Url</label>
         <input type="text" class="form-control" id="url" name="api[url]" placeholder="example: /api/profile">
@@ -11,7 +10,7 @@
       </div>
       <div class="form-group">
         <label for="method">Method</label>
-        <select class="form-control" name="api[method]">
+        <select class="form-control" name="api[method]" id="method">
           <option value="GET">GET</option>
           <option value="POST">POST</option>
           <option value="PUT">PUT</option>
@@ -21,10 +20,9 @@
       </div>
       <div class="form-group">
         <label for="data">Response</label>
-        <textarea class="form-control" rows="10" name="api[data]" placeholder="{ 'data': { 'mobile': 110 } }"></textarea>
+        <textarea class="form-control" rows="10" id="data" name="api[data]" placeholder="{ 'data': { 'mobile': 110 } }"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary pull-right">Submit</button>
-    </form>
+      <button type="submit" class="btn btn-primary pull-right" id="create">Submit</button>
   </div>
   <div class="col-md-5">
     <h1>Api</h1>
@@ -166,6 +164,25 @@
           }
         }
       });
+    });
+  });
+
+  $('#create').on('click', function () {
+    $.ajax({
+      url: '/apis',
+      type: 'POST',
+      dataType: "json",
+      data: {
+        'api[url]': $('#url').val(),
+        'api[comment]': $('#comment').val(),
+        'api[method]': $('#method').val(),
+        'api[data]': JSON.parse($('#data').val())
+      },
+      success: function(response) {
+        if (response.success) {
+          window.location.href = '/apis';
+        }
+      }
     });
   });
 </script>

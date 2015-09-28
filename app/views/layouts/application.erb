@@ -16,7 +16,8 @@
   <% end %>    
 
   <div class="pull-right">
-    <span style="margin-right: 20px;"><%= @current_user.nickname %></span>
+    <span><%= @current_user.nickname %></span>
+    <a href="/sessions/destroy">退出</a>
   </div>
 
   <%= yield %>

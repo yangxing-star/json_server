@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
 
   has_many :apis
 
+  validates_presence_of :mobile, :nickname
+  validates :mobile, format: { with: /\A1\d{10}\z/ }
+
   def password
     @password ||= Password.new(password_hash)
   end

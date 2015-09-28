@@ -40,4 +40,10 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def logout
+    session.delete(:user_id)
+    @current_user = nil
+    response.delete_cookie(:user_id, :path => '/')
+  end
 end

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'apis#index'
 
-  resources :sessions
+  get  'sessions/new', to: 'sessions#new'
+  post 'sessions',     to: 'sessions#create'
+  get  'sessions/destroy', to: 'sessions#destroy'
 
   resources :users
 
