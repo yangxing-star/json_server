@@ -132,7 +132,7 @@
           'api[url]': $('#edit_url').val(),
           'api[method]': $('#edit_method').val(),
           'api[comment]': $('#edit_comment').val(),
-          'api[data]': $('#edit_data').val()
+          'api[data]': JSON.parse($('#edit_data').val())
         },
         success: function(response) {
           if (response.success) {
