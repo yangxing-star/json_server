@@ -25,7 +25,7 @@ class ApisController < ApplicationController
   end
 
   def show
-    api = @current_user.apis.find_by(url: request.fullpath)
+    api = Api.find_by(url: request.fullpath)
     render json: api.data
   end
 
