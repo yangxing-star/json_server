@@ -5,11 +5,10 @@ class ApisController < ApplicationController
   def create
     api = @current_user.apis.new api_params
     if api.save
-      redirect_to action: :index
+      render json: { success: true }
     else
       flash[:error] = api.errors.full_messages.to_s
-      @apis = @current_user.apis
-      render 'apis/index'
+      redirect_to action: :index
     end
   end
 
