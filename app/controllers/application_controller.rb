@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def require_user
     unless current_user
       respond_to do |format|
-        format.html { redirect_to new_session_path }
+        format.html { redirect_to sessions_new_path }
         format.json { render :json => { biz_action: 1, biz_msg: 'please login', return_status: 1005 } }
       end
     else
@@ -39,6 +39,10 @@ class ApplicationController < ActionController::Base
         session[:user_id] = nil
       end
     end
+  end
+
+  def logined?
+    !!current_user
   end
 
   def logout
