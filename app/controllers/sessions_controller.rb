@@ -1,11 +1,13 @@
 class SessionsController < ApplicationController
   layout 'session'
   
-  def new; end
+  def new
+    redirect_to controller: :apis, action: :index if logined?
+  end
 
   def create
     begin
-      user = User.find_with_login(params[:mobile], params[:password])
+      user = User.find_with_login(params[:email], params[:password])
       set_current_user(user)
       redirect_to controller: :apis, action: :index
     rescue => e

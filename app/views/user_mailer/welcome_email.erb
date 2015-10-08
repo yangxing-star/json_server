@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h2>Welcome to test.yangxing.me, <%= @user.nickname %></h2>
+    <p>
+      You have successfully signed up to test.yangxing.me,
+      your token is: <span>【<%= @user.token %>】</span>
+    </p>
+    <div>
+      <h3>Important thing to say 3 times：</h3>
+      <p>Don't tell anyone.</p>
+      <p>Don't tell anyone.</p>
+      <p>Don't tell anyone.</p>
+    </div>
+    <hr>
+    <p>
+      To login to the site, just follow this link: <%= @url %>.
+    </p>
+    <p>Thanks for joining and have a great day!</p>
+  </body>
+</html>

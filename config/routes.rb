@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'apis#index'
+  root 'sessions#new'
 
   get  'sessions/new', to: 'sessions#new'
   post 'sessions',     to: 'sessions#create'

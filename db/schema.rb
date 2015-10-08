@@ -25,7 +25,8 @@ ActiveRecord::Schema.define(version: 2) do
 
   create_table "users", force: :cascade do |t|
     t.string   "nickname",      limit: 255, null: false
-    t.string   "mobile",        limit: 255, null: false
+    t.string   "email",         limit: 255, null: false
+    t.string   "token",         limit: 255, null: false
     t.string   "password_hash", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"

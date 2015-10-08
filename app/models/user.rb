@@ -3,8 +3,12 @@ class User < ActiveRecord::Base
 
   has_many :apis
 
-  validates_presence_of :mobile, :nickname
-  validates :mobile, format: { with: /\A1\d{10}\z/ }
+  validates_presence_of :email, :nickname
+  validates :email, format: { with: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/ }
+
+  before_create do
+    self.token = secure_token.downcase
+  end
 
   def password
     @password ||= Password.new(password_hash)
@@ -20,14 +24,19 @@ class User < ActiveRecord::Base
   end
 
   class << self
-    def find_with_login(mobile, password)
-      raise 'Please enter mobile' if mobile.blank?
+    def find_with_login(email, password)
+      raise 'Please enter email' if email.blank?
       raise 'Please enter password' if password.blank?
 
-      user = User.find_by(mobile: mobile)
-      raise 'Mobile or password is wrong' unless user.password == password
+      user = User.find_by(email: email)
+      raise 'Email or password is wrong' if user.nil? || user.password != password
       user
     end
+  end
+
+  private
+  def secure_token(length = 16)
+    SecureRandom.hex(length / 2)
   end
 
 end

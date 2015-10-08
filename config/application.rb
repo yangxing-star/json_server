@@ -24,5 +24,20 @@ module JsonServer
     config.active_record.raise_in_transactional_callbacks = true
 
     config.assets.precompile += %w( application.css application.js )
+    
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.raise_delivery_errors = true
+    config.action_mailer.default charset: 'utf-8'
+
+    config.action_mailer.smtp_settings = {
+      address:              'smtp.qq.com',
+      port:                 25,
+      domain:               'test.yangxing.me',
+      user_name:            ENV['user_name'],
+      password:             ENV['password'],
+      authentication:       :login,
+      enable_starttls_auto: true
+    }
   end
 end

@@ -1,5 +1,6 @@
 class ApisController < ApplicationController
   before_action :require_user, except: :show
+  before_action :auth_token, only: :show
   before_action :find_api, only: [ :destroy, :detail, :update ]
 
   def create
@@ -25,8 +26,7 @@ class ApisController < ApplicationController
   end
 
   def show
-    api = Api.find_by(url: request.fullpath)
-    render json: api.data
+    render json: @api.data
   end
 
   def detail
@@ -45,6 +45,13 @@ class ApisController < ApplicationController
 
   def find_api
     @api = @current_user.apis.find(params[:id])
+  end
+
+  def auth_token
+    user = User.where(token: request.headers['token']).first
+    render json: { message: '401 Unauthorized' }, status: 401 and return if user.nil?
+    @api = user.apis.find_by(url: request.fullpath)
+    render json: { message: 'api url error' } and return if @api.nil?
   end
 
 end
