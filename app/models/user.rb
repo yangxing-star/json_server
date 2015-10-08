@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :apis
 
   validates_presence_of :email, :nickname
-  validates :email, format: { with: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/ }
+  validates :email, format: { with: /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/ }, uniqueness: true
 
   before_create do
     self.token = secure_token.downcase
