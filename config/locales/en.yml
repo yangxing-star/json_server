@@ -20,4 +20,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  sign_in: 'Sign in'
+  sign_up: 'Sign up'
+  logout: 'logout'
+  token_error: 'Token error'
+  submit: 'Submit'
+  close: 'Close'
+  save: 'Save changes'
+  confirm: 'Confirm'
+  edit: 'Edit'
+  delete: 'Delete'
+  delete_msg: 'Delete it?'
+  save_msg: 'Successful! Close this window after 3 second.'

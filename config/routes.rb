@@ -7,6 +7,12 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resource :profiles do
+    member do
+      get :change_locale
+    end
+  end
+
   resources :apis do
     member do
       get :detail
@@ -14,6 +20,6 @@ Rails.application.routes.draw do
   end
 
   Api.all.each do |api|
-    match "#{api.url}", to: 'apis#show', via: [ api.method.intern ]
+    match "#{api.url}", to: 'apis#show', via: [ api.method.try(:intern) ]
   end
 end

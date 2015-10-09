@@ -1,15 +1,15 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-1">
       <div class="form-group">
-        <label for="url">Url</label>
+        <label for="url"><%= Api.han(:url) %></label>
         <input type="text" class="form-control" id="url" name="api[url]" placeholder="example: /api/profile">
       </div>
       <div class="form-group">
-        <label for="comment">Comment</label>
+        <label for="comment"><%= Api.han(:comment) %></label>
         <input type="text" class="form-control" id="comment" name="api[comment]" placeholder="optional">
       </div>
       <div class="form-group">
-        <label for="method">Method</label>
+        <label for="method"><%= Api.han(:method) %></label>
         <select class="form-control" name="api[method]" id="method">
           <option value="GET">GET</option>
           <option value="POST">POST</option>
@@ -19,10 +19,10 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="data">Response</label>
+        <label for="data"><%= Api.han(:response) %></label>
         <textarea class="form-control" rows="10" id="data" name="api[data]" placeholder="{ 'data': { 'mobile': 110 } }"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary pull-right" id="create">Submit</button>
+      <button type="submit" class="btn btn-primary pull-right" id="create"><%= t('submit') %></button>
   </div>
   <div class="col-md-5">
     <h1>Api</h1>
@@ -48,20 +48,20 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Edit</h4>
+        <h4 class="modal-title"><%= t('edit') %></h4>
       </div>
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <label for="edit_url">Url</label>
+            <label for="edit_url"><%= Api.han(:url) %></label>
             <input type="text" class="form-control" id="edit_url" name="api[url]">
           </div>
           <div class="form-group">
-            <label for="edit_comment">Comment</label>
+            <label for="edit_comment"><%= Api.han(:comment) %></label>
             <input type="text" class="form-control" id="edit_comment" name="api[comment]" placeholder="optional">
           </div>
           <div class="form-group">
-            <label for="edit_method">Method</label>
+            <label for="edit_method"><%= Api.han(:method) %></label>
             <select class="form-control" name="api[method]" id="edit_method">
               <option value="GET">GET</option>
               <option value="POST">POST</option>
@@ -71,15 +71,15 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="edit_data">Response</label>
+            <label for="edit_data"><%= Api.han(:response) %></label>
             <textarea class="form-control" rows="10" name="data" id="edit_data"></textarea>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <span class="hide" id="tip">Successful! Close this window after 3 second.</span>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="update">Save changes</button>
+        <span class="hide" id="tip"><%= t('save_msg') %></span>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('close') %></button>
+        <button type="button" class="btn btn-primary" id="update"><%= t('save') %></button>
       </div>
     </div>
   </div>
@@ -90,14 +90,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete</h4>
+        <h4 class="modal-title"><%= t('delete') %></h4>
       </div>
       <div class="modal-body">
-        <p>Delete it?</p>
+        <p><%= t('delete_msg') %></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="confirmRemove">Confirm</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('close') %></button>
+        <button type="button" class="btn btn-primary" id="confirmRemove"><%= t('confirm') %></button>
       </div>
     </div>
   </div>

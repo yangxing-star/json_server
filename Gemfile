@@ -7,6 +7,7 @@ gem 'mysql2', '~> 0.3.18'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'figaro'
+gem 'active_hash'
 gem 'bcrypt', '~> 3.1.7'
 gem 'puma'
 

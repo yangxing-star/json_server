@@ -1,21 +1,21 @@
-<div class="container" style="margin-top: 200px;">
+<div class="container">
   <div class="login-box">
     <form class="form-horizontal" action="/sessions" method="post">
       <div class="form-group">
-        <label for="email">Email</label>
+        <label for="email"><%= User.han(:email) %></label>
         <div>
-          <input type="text" class="form-control" id="email" name="email" placeholder="Your email">
+          <input type="text" class="form-control" id="email" name="email">
         </div>
       </div>
       <div class="form-group">
-        <label for="password" class="control-label">Password</label>
+        <label for="password" class="control-label"><%= User.han(:password) %></label>
         <div>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+          <input type="password" class="form-control" id="password" name="password">
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-default">Sign in</button>
-        <a href="/users/new" class="pull-right">Sign up</a>
+        <button type="submit" class="btn btn-default"><%= t('sign_in') %></button>
+        <a href="/users/new" class="pull-right"><%= t('sign_up') %></a>
       </div>
     </form>
   </div>
