@@ -13,3 +13,20 @@
  *= require_tree .
  *= require_self
  */
+
+.login-box {
+  width: 100%;
+  max-width:500px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+
+  margin-top: -350px;  
+}
+
+@media screen and (min-width:500px){
+  .login-box {
+    left: 50%;
+    margin-left: -250px;
+  }
+}
