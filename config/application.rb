@@ -23,7 +23,7 @@ module JsonServer
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
-    config.assets.precompile += %w( application.css application.js )
+    config.assets.precompile += %w( application.css application.js apis.js )
     
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.perform_deliveries = true
