@@ -19,9 +19,7 @@
   max-width: 500px;
   height: 400px;
   position: absolute;
-  top: 50%;
-
-  margin-top: -350px;  
+  top: 30%;
 }
 
 @media screen and (min-width:500px){
